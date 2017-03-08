@@ -1,12 +1,9 @@
-
-var Color = require('color');
-
 module.exports={
 	colors : {
 		main : "#16171a",
 		component : "black",
 		primary : "#b89a53",
-		secondary : Color("#b89a53").lighten(0.5).string(),
+		secondary : "#b89a53",
 		warning : "red",
 		good : "green",
 	},

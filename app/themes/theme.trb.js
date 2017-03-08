@@ -1,10 +1,9 @@
-
 module.exports={
 	colors : {
-		main : "white",
-		component : "white",
-		primary : "grey",
-		secondary : "grey",
+		main : "#16171a",
+		component : "black",
+		primary : "#cd3a35",
+		secondary : "#b5b5b5",
 		warning : "red",
 		good : "green",
 	},

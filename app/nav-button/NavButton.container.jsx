@@ -1,32 +1,28 @@
 
-    import React, { Component } from 'react';
-    import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+
+//APP COMPONENTS
+import NavButton from './NavButton.jsx';
 
 
 
-    // APPS COMPONENTS
-    import SendEmailSimple from "./SendEmailSimple.jsx";
+// STYLES
+import styles from "./NavButton.styles.js";
 
 
-    // STYLES
-    import styles from "./SendEmailSimple.styles.js";
-
-	import users from "./SendEmail.dataMocks.js";
-
-    export default class  SendEmailSimpleContainer extends Component {
-
+class  NavButtonContainer extends Component {
+    
     constructor(props){
         super(props);
-        //console.log(props.theme)
-        
+                     
         this.state = {
             canTest : false,
-			users : users,
             styles : styles(props.theme)
         }
-
+        
     }
-
+    
+    
     /*_______________________________________________________________________________________________________________
     _________________________________________________________________________________________________________________  
     _____________________________________________COMPONENT LIFE CYCLE_________________________________________________
@@ -88,19 +84,19 @@
     ___________________________________________________________________________________________________________________  
     _____________________________________________COMPONENT TEMPLATE____________________________________________________
     _________________________________________________________________________________________________________________*/
-        render() {
-            return  (
-                <div style={{width:"auto", height:"auto"}}>
-                    {this.state.users ? 
-                        <SendEmailSimple 
-                            {...this.props}
-                            users = {this.state.users}
-                            styles={this.state.styles}
-                        />:
-                        <div>loading</div>
-                    }
-                </div>
-            );
-        }
-    }
+
     
+	render() {
+		return  (
+            <div> 
+                <NavButton 
+                    {...this.props}
+                    styles={this.state.styles}
+                />
+            </div>
+		);
+	}
+}
+
+export default NavButtonContainer 
+
