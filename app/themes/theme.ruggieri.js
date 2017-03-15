@@ -4,6 +4,9 @@ module.exports={
 		component : "black",
 		primary : "#b89a53",
 		secondary : "#b89a53",
+		hoverSecondary : "yellow",
+		text : "black",
+		textSecondary : "white",
 		warning : "red",
 		good : "green",
 	},
@@ -15,6 +18,6 @@ module.exports={
 		}
 	},
 	fonts : {
-		main : 'sans-serif'
+		main : 'Play'
 	}
 }

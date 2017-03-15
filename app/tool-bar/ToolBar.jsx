@@ -1,35 +1,50 @@
 
     import React, { Component } from 'react';
     import ReactDOM from 'react-dom';
+    //import PureRenderMixin from 'react-addons-pure-render-mixin';
+    //import { Router, Route, Link, IndexRoute, hashHistory, browserHistory, DefaultRoute, Redirect } from 'react-router';
+
+    // EXTERNAL LIBS
 
 
 
-    // APPS COMPONENTS
-    import SendEmailSimple from "./SendEmailSimple.jsx";
+    //MATERIAL COMPNENTS
+    import RaisedButton from 'material-ui/RaisedButton';
+    import FontIcon from 'material-ui/FontIcon';
+    import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui';
+    import TextField from 'material-ui/TextField';
+    import Divider from 'material-ui/Divider';
+    import Paper from 'material-ui/Paper';
+
+    //MATERIAL ICONS
+    import PlayArrow from 'material-ui/svg-icons/av/play-arrow.js';
+    import Stop from 'material-ui/svg-icons/av/stop.js';
+    import Pause from 'material-ui/svg-icons/av/pause.js';
+    import FiberManualRecord from 'material-ui/svg-icons/av/fiber-manual-record.js';
+    import Refresh from 'material-ui/svg-icons/navigation/refresh.js';
+    import ImportExport from 'material-ui/svg-icons/communication/import-export.js';
+    import Settings from 'material-ui/svg-icons/action/settings.js';
+    import Save from 'material-ui/svg-icons/content/save.js';
+    //import SnackBar from 'material-ui/SnackBar';
 
 
-    // STYLES
-    import styles from "./SendEmailSimple.styles.js";
 
-	import users from "./SendEmail.dataMocks.js";
+    export default class  ToolBar extends Component {
 
-    export default class  SendEmailSimpleContainer extends Component {
+        constructor(props){
+            super(props);
+           //this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
-    constructor(props){
-        super(props);
-        //console.log(props.theme)
-        
-        this.state = {
-            canTest : false,
-			users : users,
-            styles : styles(props.stylesOptions),
+            this.state = {
+                canTest : false,
+                message : ""
+            }
+
         }
-
-    }
 
     /*_______________________________________________________________________________________________________________
     _________________________________________________________________________________________________________________  
-    _____________________________________________COMPONENT LIFE CYCLE_________________________________________________
+    _____________________________________________COMPONENT LIFE TIME_________________________________________________
     _________________________________________________________________________________________________________________*/
 
 
@@ -42,9 +57,7 @@
         }
 
         componentWillReceiveProps(newProps) {
-            this.setState({
-                styles : styles(newProps.stylesOptions),
-            })
+
         }
 
         /*shouldComponentUpdate(){
@@ -71,6 +84,13 @@
             })
         }
 
+        showMessage(message){
+            this.setState({
+                message : message,
+                showMessage : true
+            })
+        }
+
         test(){
 
         }
@@ -87,17 +107,21 @@
     ___________________________________________________________________________________________________________________  
     _____________________________________________COMPONENT TEMPLATE____________________________________________________
     _________________________________________________________________________________________________________________*/
+
         render() {
+            const styles = this.props.styles
             return  (
-                <div style={{width:"auto", height:"auto"}}>
-                    {this.state.users ? 
-                        <SendEmailSimple 
-                            {...this.props}
-                            users = {this.state.users}
-                            styles={this.state.styles}
-                        />:
-                        <div>loading</div>
-                    }
+                <div className="container" style={styles.container}>
+					{this.props.buttons.map((x, index)=>{
+						return (
+							<div 
+								key={index} 
+								style={styles.toolButton} 
+								onClick={()=>x.onClick()}>
+								{x.icon}
+							</div>
+						)
+					})}
                 </div>
             );
         }

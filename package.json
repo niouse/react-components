@@ -4,21 +4,24 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "browserify -g reactify ./app/App.jsx --minified -o ./app/bundle.js -t",
-    "watch": "watchify -v -g  reactify -p [ browserify-livereload --host 127.0.0.1 --port 1338 ] ./app/App.jsx -o ./app/bundle.js -t",
+    "build": "browserify -g reactify ./app/App.container.jsx --minified -o ./app/bundle.js -t",
+    "watch": "watchify -v -g  reactify -p [ browserify-livereload --host 127.0.0.1 --port 1338 ] ./app/App.container.jsx -o ./app/bundle.js -t",
     "clean": "rm ./app/bundle.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
     "color": "^1.0.3",
     "cookie-parser": "~1.3.5",
+    "cropperjs": "^1.0.0-beta.2",
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "material-ui": "^0.16.6",
+    "moment": "^2.17.1",
     "morgan": "~1.6.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-router": "^4.0.0",
     "react-tap-event-plugin": "^2.0.1",
     "serve-favicon": "~2.3.0"
   },

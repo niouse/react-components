@@ -1,7 +1,9 @@
 
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { browserHistory } from 'react-router';
 
+// EXTERNAL LIBS
+//import moment from 'moment';
 
 //MATERIAL COMPNENTS
 import RaisedButton from 'material-ui/RaisedButton';
@@ -10,8 +12,6 @@ import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow,
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 
 //MATERIAL ICONS
 import PlayArrow from 'material-ui/svg-icons/av/play-arrow.js';
@@ -24,15 +24,17 @@ import Settings from 'material-ui/svg-icons/action/settings.js';
 import Save from 'material-ui/svg-icons/content/save.js';
 
 
-export default class  SendEmailSimple extends Component {
+
+
+export default class  Login extends Component {
 
 	constructor(props){
 		super(props);
+		//this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
 		this.state = {
 			canTest : false,
-			message : "",
-			user : props.users[0]
+			message : ""
 		}
 
 	}
@@ -55,7 +57,7 @@ ________________________________________________________________________________
 
 	}
 
-/*      shouldComponentUpdate(){
+	/*shouldComponentUpdate(){
 
 	}*/
 
@@ -79,29 +81,32 @@ ________________________________________________________________________________
 		})
 	}
 
-	showMessage(message){
-		this.setState({
-			message : message,
-			showMessage : true
-		})
+	submitUser(e){
+		e.preventDefault();
+		Meteor.loginWithPassword(this.refs.email.input.value, this.refs.password.input.value, (error)=>{
+			this.showMessage(error)
+		});
+	}
+	
+	showMessage(error){
+		if(error){
+			 this.setState({
+				 message : error.reason,
+			 });
+			 document.getElementById("message").style.visibility= "visible";
+			 setTimeout(function(){ 
+				 document.getElementById("message").style.visibility= "hidden";
+			 }, 4000);
+		}
+		 else {
+			 browserHistory.push("/home");
+		 };
 	}
 
 	test(){
 
 	}
 
-	 handleChange(event, index, value){
-		 this.setState({user:value})
-	 }
-	
-	
-	sendEmail(){
-		
-	}
-
-	closeComponent(){
-		
-	}
 
 /*_________________________________________________________________________________________________________________
 ___________________________________________________________________________________________________________________ 
@@ -117,54 +122,35 @@ ________________________________________________________________________________
 
 	render() {
 		const styles = this.props.styles
+		//console.log(styles)
 		return  (
-			<div className="container" style={styles.container}>
-				<div style={styles.header}>
-					<div>Envoyer un email</div>
-				</div>
-				<div style={styles.content}>
+			<div style={styles.container}>
+				<h1>LOGIN</h1>
+				 <form className="register" style={styles.form} onSubmit={this.submitUser.bind(this)}>
+					<TextField
+						  ref="email"
+						  hintText="Hint Text"
+						  type="email" pattern="[^ @]*@[^ @]*"
+						  floatingLabelText="Email"				
+						  required="true"
+						  style={styles.mailInput}
+						/>
 
-					<div  style={styles.content.title}>
-						Déstinataire:
-					</div>
-					 <SelectField
-						 style={styles.content.receiver}
-						 id="contentReceiver"
-						 value={this.state.user} 
-						 onChange={(event, index, value)=>this.handleChange(event, index, value)}
-						 maxHeight={200}
-					 >
-						{this.props.users.map((user, index)=>{
-							 return (
-								<MenuItem key={index} value={user} primaryText={user.profile.firstName+' '+user.profile.lastName} />
-							 )
-						 })}
-					</SelectField>
-					<TextField 
-		
-						style={styles.content.message}
-						id="contentMessage"
-						multiLine={true} 
-						hintText="Taper votre message"
-						rows={10}
-						required="true"
-					/>
-				</div>
-				<div style={styles.footer}>
-					<RaisedButton 
-						primary={true}
-						label="Envoyer" 
-						onClick={()=>this.sendEmail()}
-					/>
-					<RaisedButton 
-						primary={true}
-						label="Quitter" 
-						onClick={()=>this.closeComponent()}
-						
-					/>
-				</div>
-
+					 <TextField
+						  ref="password"
+						  type="password" pattern=".{5,10}"
+						  hintText="Hint Text"
+						  floatingLabelText="Password"
+						  required="true"
+						 style={styles.passwordInput}
+						/>
+						<RaisedButton type="submit" label="se connecter" primary={true} style={styles.button}/>
+					 <p>ou</p>
+					 <RaisedButton label="créer un compte" primary={true} style={styles.submit} onClick={()=>{browserHistory.push("/signup")}} style={styles.button}/>
+				</form>	
+				<p id="message" style={styles.message}>{this.state.message}</p>
 			</div>
 		);
 	}
 }
+    

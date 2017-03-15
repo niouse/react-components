@@ -1,10 +1,12 @@
-
 module.exports={
 	colors : {
 		main : "white",
 		component : "white",
-		primary : "grey",
+		primary : "#00bcd4",
 		secondary : "grey",
+		hoverSecondary : "yellow",
+		text : "black",
+		textSecondary : "white",
 		warning : "red",
 		good : "green",
 	},

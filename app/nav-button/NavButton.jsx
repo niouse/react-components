@@ -8,19 +8,24 @@ export default class NavButton extends Component {
             
 		}
 	}
+	
+	componentDidMount(){
+		
+	}
     
     onMouseOver(e){
-        e.target.style['background-color']
+        e.target.style['background-color']=this.props.styles.hover.backgroundColor
     }
     
     onMouseOut(e){
-        
+		e.target.style['background-color']=this.props.styles.container.backgroundColor
     }
     
 	render () {
         let styles=this.props.styles
 		return (
 			<div 
+				id={this.props.id || "button"}
                 style={styles.container} 
                 className = "flexi" onClick={this.props.onClick}
                 onMouseOver={(e)=>this.onMouseOver(e)}

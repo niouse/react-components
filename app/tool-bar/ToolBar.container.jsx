@@ -1,31 +1,29 @@
 
-import React, { Component } from 'react';
+    import React, { Component } from 'react';
+    import ReactDOM from 'react-dom';
+    //import PureRenderMixin from 'react-addons-pure-render-mixin';
+    //import { Router, Route, Link, IndexRoute, hashHistory, browserHistory, DefaultRoute, Redirect } from 'react-router';
 
-//APP COMPONENTS
-import NavButton from './NavButton.jsx';
+    import ToolBar from "./ToolBar.jsx";
 
+    import styles from "./ToolBar.styles.js";
 
+    export default class  ToolBarContainer extends Component {
 
-// STYLES
-import styles from "./NavButton.styles.js";
-
-
-class  NavButtonContainer extends Component {
-    
+				
     constructor(props){
         super(props);
-                     
+        //this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+
         this.state = {
             canTest : false,
-            styles : styles(props.stylesOptions),
+			styles : styles(props.stylesOptions),
         }
-        
     }
-    
-    
+
     /*_______________________________________________________________________________________________________________
     _________________________________________________________________________________________________________________  
-    _____________________________________________COMPONENT LIFE CYCLE_________________________________________________
+    _____________________________________________COMPONENT LIFE TIME_________________________________________________
     _________________________________________________________________________________________________________________*/
 
 
@@ -37,7 +35,7 @@ class  NavButtonContainer extends Component {
 
         }
 
-        componentWillReceiveProps(newProps) {
+       componentWillReceiveProps(newProps) {
             this.setState({
                 styles : styles(newProps.stylesOptions),
             })
@@ -67,6 +65,13 @@ class  NavButtonContainer extends Component {
             })
         }
 
+        showMessage(message){
+            this.setState({
+                message : message,
+                showMessage : true
+            })
+        }
+
         test(){
 
         }
@@ -84,18 +89,19 @@ class  NavButtonContainer extends Component {
     _____________________________________________COMPONENT TEMPLATE____________________________________________________
     _________________________________________________________________________________________________________________*/
 
+        render() {
+            return  (
+                <div style={{width:"100%", height:"100%"}}>
+                    {
+						this.props.buttons ?
+						<ToolBar 
+                        {...this.props}
+                        styles={this.state.styles}
+                    	/> :
+						<div>no buttons provided</div>
+					}
+                </div>
+            );
+        }
+    }
     
-	render() {
-		return  (
-            <div> 
-                <NavButton 
-                    {...this.props}
-                    styles={this.state.styles}
-                />
-            </div>
-		);
-	}
-}
-
-export default NavButtonContainer 
-
